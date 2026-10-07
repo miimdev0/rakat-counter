@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f6b73">
+<title>رکعت‌شمار هوشمند</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Vazirmatn:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- خانه -->
+  <section id="home" class="screen">
+    <header class="top">
+      <div>
+        <h1>رکعت‌شمار</h1>
+        <div class="dates" id="dates"></div>
+      </div>
+      <button id="setBtn" class="link" type="button">تنظیمات</button>
+    </header>
+
+    <div class="now card">
+      <div class="clock" id="clock">--:--</div>
+      <div class="nowtext" id="nowText"></div>
+      <div class="sub" id="subText"></div>
+      <button id="startBtn" class="primary big" type="button">شروع نماز</button>
+    </div>
+
+    <svg id="timeline" viewBox="0 0 320 84" role="img" aria-label="خط زمانی اوقات نماز"></svg>
+
+    <div class="daily" id="daily"></div>
+    <ul id="list" class="list"></ul>
+
+    <div class="card qibla">
+      <div class="dial" id="dial" aria-hidden="true"><div class="needle" id="needle"></div><span class="k">ک</span></div>
+      <div class="qtext">
+        <b>جهت قبله</b>
+        <div id="qDeg"></div>
+        <button id="compassBtn" class="link" type="button">فعال‌سازی قطب‌نما</button>
+      </div>
+    </div>
+
+    <button id="locBtn" class="locrow card" type="button"><span>موقعیت</span><b id="locName">تهران</b></button>
+
+    <div class="seg" role="group" aria-label="مذهب">
+      <button type="button" data-s="shia">شیعه</button>
+      <button type="button" data-s="sunni">اهل سنت</button>
+    </div>
+    <p class="note">اوقات محاسبه‌ای است و ممکن است چند دقیقه با تقویم رسمی تفاوت داشته باشد.</p>
+  </section>
+
+  <!-- نماز -->
+  <section id="pray" class="screen full" hidden>
+    <header class="top">
+      <button id="exitBtn" class="link" type="button">خروج</button>
+      <div id="title" class="ptitle"></div>
+      <span class="spacer"></span>
+    </header>
+    <div id="rakats" class="rakats"></div>
+    <div class="pose" id="pose"><img id="poseImg" alt="" hidden><span id="poseLabel"></span></div>
+    <div class="zikr card">
+      <div class="stepname" id="stepName"></div>
+      <div class="ar" id="arText" lang="ar" dir="rtl"></div>
+      <div class="fa" id="faText"></div>
+      <div class="badges" id="badges"></div>
+    </div>
+    <div class="dots" id="dots"></div>
+    <div class="tapnote" id="tapNote">هر جای صفحه را لمس کن</div>
+    <div class="row"><button id="prevBtn" type="button">قبلی</button></div>
+  </section>
+
+  <!-- تعقیبات -->
+  <section id="taqib" class="screen full" hidden>
+    <header class="top">
+      <button id="skipBtn" class="link" type="button">رد کردن</button>
+      <div id="tqTitle" class="ptitle"></div>
+      <span class="spacer"></span>
+    </header>
+    <div id="tqBar" class="rakats"></div>
+    <div class="ring" id="ring"><div class="ringin"><b id="cnt">۰</b><span id="cntOf"></span></div></div>
+    <div class="zikr card">
+      <div class="stepname" id="tqName"></div>
+      <div class="ar" id="tqAr" lang="ar" dir="rtl"></div>
+      <div class="fa" id="tqFa"></div>
+    </div>
+    <div class="tapnote">هر جای صفحه را لمس کن</div>
+    <div class="row"><button id="tqPrev" type="button">قبلی</button></div>
+  </section>
+
+  <!-- پایان -->
+  <section id="end" class="screen" hidden>
+    <div class="card endcard">
+      <div class="moon" aria-hidden="true">☪</div>
+      <h2>قبول باشد</h2>
+      <p id="endText"></p>
+      <button id="homeBtn" class="primary big" type="button">بازگشت</button>
+    </div>
+  </section>
+
+  <!-- انتخاب موقعیت -->
+  <section id="loc" class="screen" hidden>
+    <header class="top"><button class="link back" type="button">بازگشت</button><div class="ptitle">انتخاب موقعیت</div><span class="spacer"></span></header>
+    <button id="gpsBtn" class="primary" type="button">استفاده از موقعیت دقیق من</button>
+    <input id="citySearch" class="field" type="search" placeholder="جستجوی شهر…" autocomplete="off">
+    <div id="gpsMsg" class="note"></div>
+    <ul id="cityList" class="list"></ul>
+  </section>
+
+  <!-- تنظیمات -->
+  <section id="settings" class="screen" hidden>
+    <header class="top"><button class="link back" type="button">بازگشت</button><div class="ptitle">تنظیمات</div><span class="spacer"></span></header>
+
+    <div class="card group">
+      <label>پوسته</label>
+      <div class="seg" id="themeSeg">
+        <button type="button" data-v="auto">خودکار</button><button type="button" data-v="light">روشن</button><button type="button" data-v="dark">تیره</button>
+      </div>
+      <label>لمس صفحه در نماز</label>
+      <div class="seg" id="tapSeg">
+        <button type="button" data-v="step">مرحله‌به‌مرحله</button><button type="button" data-v="rakat">رکعت‌به‌رکعت</button>
+      </div>
+      <label>تعقیبات بعد از نماز</label>
+      <div class="seg" id="tqSeg">
+        <button type="button" data-v="on">نمایش</button><button type="button" data-v="off">بدون تعقیبات</button>
+      </div>
+      <label>اعلان وقت نماز (وقتی صفحه باز است)</label>
+      <div class="seg" id="alertSeg">
+        <button type="button" data-v="off">خاموش</button><button type="button" data-v="on">روشن</button>
+      </div>
+      <label>اندازهٔ متن عربی</label>
+      <div class="row"><button id="fsMinus" type="button">کوچک‌تر</button><button id="fsPlus" type="button">بزرگ‌تر</button></div>
+    </div>
+
+    <div class="card group">
+      <label>تصویر حالت‌ها (آدرس تصویر را بچسبان)</label>
+      <input class="field img" data-p="stand" type="url" dir="ltr" placeholder="قیام: https://…">
+      <input class="field img" data-p="ruku" type="url" dir="ltr" placeholder="رکوع: https://…">
+      <input class="field img" data-p="sajdah" type="url" dir="ltr" placeholder="سجده: https://…">
+      <input class="field img" data-p="sit" type="url" dir="ltr" placeholder="نشستن (تشهد): https://…">
+      <p class="note">می‌توانی آدرس تصویر گوگل یا مسیر فایل محلی مثل img/ruku.jpg را بگذاری.</p>
+    </div>
+
+    <div class="card group">
+      <label>آمار</label>
+      <div id="stats" class="fa"></div>
+      <button id="resetStats" class="link" type="button">پاک کردن آمار</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

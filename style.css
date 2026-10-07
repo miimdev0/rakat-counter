@@ -1,0 +1,116 @@
+:root{
+  --bg:#e8f0f1; --ink:#12282d; --soft:#58707a; --card:#f7fbfb; --track:#cddcde;
+  --accent:#0f6b73; --on:#ffffff; --sun:#d99a1f; --night:#2b4a63; --day:#f3d98b; --arfs:26px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c181b; --ink:#e4eef0; --soft:#8ba5ab; --card:#14262a; --track:#24393e;
+    --accent:#4cb8c0; --on:#06191c; --sun:#f0b43c; --night:#1b3346; --day:#6d5a22;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c181b; --ink:#e4eef0; --soft:#8ba5ab; --card:#14262a; --track:#24393e;
+  --accent:#4cb8c0; --on:#06191c; --sun:#f0b43c; --night:#1b3346; --day:#6d5a22;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,sans-serif;display:flex;justify-content:center;user-select:none;touch-action:manipulation}
+#app{width:100%;max-width:460px;padding:14px 18px 28px;min-height:100dvh}
+.screen{display:flex;flex-direction:column;gap:14px}
+.screen.full{min-height:calc(100dvh - 42px)}
+[hidden]{display:none!important}
+button{font:inherit}
+button:focus-visible,.field:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+.top{display:flex;align-items:center;justify-content:space-between;min-height:40px;gap:8px}
+h1{font-size:20px;font-weight:800;margin:0}
+.dates{font-size:12px;color:var(--soft);margin-top:2px;line-height:1.7}
+.spacer{width:56px}
+.link{background:none;border:0;color:var(--accent);font-size:13px;padding:8px 4px;cursor:pointer}
+.card{background:var(--card);border-radius:20px;padding:18px}
+.primary{background:var(--accent);color:var(--on);border:0;border-radius:14px;padding:14px;font-weight:600;font-size:16px;cursor:pointer}
+.primary.big{width:100%;padding:16px;font-size:17px}
+.row{display:flex;gap:10px}
+.row button{flex:1;border:1.5px solid var(--track);background:transparent;color:var(--ink);border-radius:14px;padding:13px;font-size:15px;cursor:pointer}
+.field{width:100%;border:1.5px solid var(--track);background:var(--card);color:var(--ink);border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;user-select:text}
+.note{font-size:12px;color:var(--soft);text-align:center;margin:0;line-height:1.8}
+
+/* خانه */
+.now{text-align:center;display:flex;flex-direction:column;gap:6px}
+.clock{font-size:52px;font-weight:800;line-height:1.1;direction:ltr;color:var(--accent)}
+.nowtext{font-size:19px;font-weight:600}
+.sub{font-size:13px;color:var(--soft);margin-bottom:8px}
+#timeline{width:100%;direction:ltr;display:block}
+#timeline text{font-family:"Vazirmatn",Tahoma,sans-serif;font-size:9px;fill:var(--soft);text-anchor:middle}
+#timeline text.on{fill:var(--accent);font-weight:700}
+.daily{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--soft)}
+.daily i{flex:1;height:8px;border-radius:5px;background:var(--track)}
+.daily i.on{background:var(--accent)}
+.daily span{margin-inline-start:6px;white-space:nowrap}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.list li button{width:100%;display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1.5px solid transparent;border-radius:14px;padding:13px 16px;color:var(--ink);font-size:16px;cursor:pointer;text-align:start}
+.list li.cur button{border-color:var(--accent)}
+.list li.past button{opacity:.6}
+.list .t{direction:ltr;color:var(--soft);font-variant-numeric:tabular-nums}
+.list .r{font-size:12px;color:var(--soft);margin-inline-start:8px}
+.list .ok{color:var(--accent);font-weight:800;margin-inline-start:8px}
+.qibla{display:flex;align-items:center;gap:16px}
+.dial{position:relative;width:84px;height:84px;border-radius:50%;border:3px solid var(--track);flex:none}
+.needle{position:absolute;inset:0;transition:transform .2s}
+.needle::before{content:"";position:absolute;top:6px;left:calc(50% - 5px);border:5px solid transparent;border-bottom:34px solid var(--accent);border-top:0}
+.needle::after{content:"";position:absolute;top:6px;left:calc(50% - 1px);width:2px;height:70px;background:var(--track)}
+.dial .k{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--sun)}
+.qtext{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.qtext #qDeg{color:var(--soft);font-size:13px}
+.locrow{display:flex;justify-content:space-between;align-items:center;border:0;color:var(--ink);font-size:15px;cursor:pointer;width:100%}
+.locrow b{color:var(--accent)}
+.seg{display:flex;background:var(--card);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:none;color:var(--soft);padding:10px 6px;border-radius:10px;cursor:pointer;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on);font-weight:600}
+.group{display:flex;flex-direction:column;gap:10px}
+.group label{font-size:13px;color:var(--soft);margin-top:6px}
+.group .seg{background:var(--bg)}
+
+/* نماز و تعقیبات */
+.ptitle{font-weight:800;font-size:17px;text-align:center}
+.rakats{display:flex;gap:6px}
+.rakats i{flex:1;height:10px;border-radius:6px;background:var(--track);position:relative;overflow:hidden}
+.rakats i b{position:absolute;inset:0;background:var(--accent);transform-origin:right;transform:scaleX(0);transition:transform .35s}
+.rakats i.full b{transform:scaleX(1)}
+.rakats i.act{box-shadow:0 0 0 2px var(--sun)}
+.pose{position:relative;height:190px;border-radius:20px;overflow:hidden;background:linear-gradient(160deg,var(--night),var(--accent));display:flex;align-items:flex-end;justify-content:center}
+.pose img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#fff}
+.pose span{position:relative;margin:14px;padding:6px 18px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-weight:600;font-size:16px}
+.pose.noimg{align-items:center}
+.pose.noimg span{font-size:34px;background:none;font-weight:800;padding:0}
+.zikr{text-align:center;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.stepname{font-size:15px;font-weight:600;color:var(--accent)}
+.ar{font-family:"Amiri","Traditional Arabic",serif;font-size:var(--arfs);line-height:2.1}
+.fa{font-size:14px;color:var(--soft);line-height:1.9}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.badges span{font-size:12px;padding:4px 12px;border-radius:999px;background:var(--track)}
+.badges span.loud{background:var(--sun);color:#1b1500}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--track)}
+.dots i.on{background:var(--accent);transform:scale(1.35)}
+.tapnote{text-align:center;font-size:12px;color:var(--soft);margin-top:auto}
+.ring{--p:0;width:150px;height:150px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--track) 0)}
+.ringin{width:124px;height:124px;border-radius:50%;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringin b{font-size:48px;line-height:1;color:var(--accent)}
+.ringin span{font-size:13px;color:var(--soft);margin-top:4px}
+.ring.pulse .ringin{animation:pulse .18s}
+@keyframes pulse{50%{transform:scale(.94)}}
+
+.endcard{text-align:center;display:flex;flex-direction:column;gap:12px;margin-top:40px}
+.moon{font-size:64px;color:var(--sun);line-height:1}
+.endcard h2{margin:0;font-size:24px}
+.endcard p{margin:0;color:var(--soft);line-height:1.9}
+
+#cityList li button{font-size:15px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--accent);color:var(--on);padding:12px 20px;border-radius:999px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:9}
+
+@media (prefers-reduced-motion:reduce){.rakats i b,.needle{transition:none}.ring.pulse .ringin{animation:none}}
